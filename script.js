@@ -1,3 +1,14 @@
+setTimeout(() => {
+  const botoes = [...document.querySelectorAll(".calendar-base")];
+  const botoesFiltrados = botoes.filter(botao => botao.className.includes('activeDayColor-'));
+  botoesFiltrados.forEach((botao) => {
+    const [child] = botao.children;
+    console.log(botao)
+    botao.onclick = () =>
+      (location.href = "http://localhost:5500/ingressos.html");
+  });
+}, 2000);
+
 let resposeRequest;
 
 const testScroll = document.querySelector(".corpo-infos");
@@ -14,19 +25,10 @@ function animaScroll() {
 
 window.addEventListener("scroll", animaScroll);
 
-setTimeout(() => {
-  const botoes = document.querySelectorAll(".activeDayColor");
-  botoes.forEach((botao) => {
-    const [child] = botao.children;
-    botao.onclick = () =>
-      (location.href = "http://localhost:5500/ingressos.html");
-  });
-}, 2000);
-
 async function pegarDadosMercadoria() {
   try {
     const response = await fetch(
-      "https://sofalta.eu/api/baratheon/v4/empreendimentos/bloemenpark/produtos/ingressos/web?data=2023-02-14"
+      "https://sofalta.eu/api/baratheon/v4/empreendimentos/bloemenpark/produtos/ingressos/web?data=2023-03-01"
     );
     const responseJson = await response.json();
     resposeRequest = responseJson;
