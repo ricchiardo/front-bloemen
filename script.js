@@ -3,7 +3,6 @@ setTimeout(() => {
   const botoesFiltrados = botoes.filter(botao => botao.className.includes('activeDayColor-'));
   botoesFiltrados.forEach((botao) => {
     const [child] = botao.children;
-    console.log(botao)
     botao.onclick = () =>
       (location.href = "http://localhost:5500/ingressos.html");
   });
@@ -110,7 +109,7 @@ function botaoComprarOriginal() {
 }
 
 function botaoComprando(index, contador) {
-  return `<div class="less-${index}" style="width: 34%; text-align: center; height: 100%; cursor: pointer;display: flex; justify-content: center; align-items: center; background-color: #01549D;color: white; animation-name: surge; animation-duration: 1s">-</div>
+  return `<div class="less-${index}" style="width: 34%; text-align: center; height: 100%; cursor: pointer;display: flex; justify-content: center; align-items: center; background-color: #01549D;color: white;">-</div>
   <div class="value-${index}" style="width: 33%; text-align: center;height: 100%;display: flex; justify-content: center; align-items: center;"><span class="value-text">${contador}</span></div>
   <div class="plus" style="width: 33%; text-align: center; height: 100%;cursor: pointer;display: flex; justify-content: center; align-items: center; background-color: #01549D;color: white;">+</div>`;
 }
@@ -255,8 +254,7 @@ function openDiv() {
     divOpen.appendChild(divInfos);
 
     divSeta.style.transform = "translateY(-3px) rotate(180deg)";
-    console.log(divSeta);
-    
+
   } else {
     this.style.removeProperty("transform");
     this.style.removeProperty("height");
