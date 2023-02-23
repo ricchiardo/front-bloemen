@@ -31,7 +31,7 @@ async function pegarDadosMercadoria() {
     );
     const responseJson = await response.json();
     resposeRequest = responseJson;
-    //console.log(responseJson);
+    console.log(responseJson);
     const tituloMercadoria = document.querySelector(".corpo-mercadorias");
     responseJson.itens.forEach((mercadoria, index) => {
       const divMercadoria = criarMercadoria(mercadoria, index);
@@ -41,6 +41,11 @@ async function pegarDadosMercadoria() {
     responseJson.grupos.forEach((grupo) => {
       const botaoGrupo = criarGrupo(grupo);
       nomeGrupo.appendChild(botaoGrupo);
+    });
+    const infosMercadorias = document.querySelector(".corpo-infos-org");
+    responseJson.mercadoriasInfos.forEach((commodity) => {
+      const divInfosMercadorias = criarDivInfos(commodity);
+      infosMercadorias.appendChild(divInfosMercadorias);
     });
   } catch (erro) {
     console.error(erro);
@@ -265,16 +270,30 @@ function openDiv() {
   }
 }
 
-function criarDivInfos() {
-  const div = document.createElement("div");
-    div.innerHTML = `
-      <div class="mercadorias-carrinho">
-      <p>Nenhum produto adicionado ao carrinho</p>
-      </div>
-    `;
-    return div;
-}
-
 divOpen.addEventListener("click", openDiv);
 divSeta.addEventListener("click", openDiv);
 
+function criarDivInfos(mercadoria) {
+  console.log(mercadoria);
+  const conferirQuantidades = localStorageContador.getItem() || {};
+  const div = document.createElement("div");
+  div.innerHTML = `
+    <div class="mercadorias-carrinho">
+    ${
+    conferirQuantidades[mercadoria.iditens] &&
+    conferirQuantidades[mercadoria.iditens].quantidade > 0
+      ? carrinhoComMercadoria()
+      : carrinhoSemMercadoria()
+    }
+    </div>
+  `;
+  return div;
+}
+
+function carrinhoSemMercadoria() {
+  return `<p>Nenhum produto adicionado ao carrinho</p>`;
+}
+
+function carrinhoComMercadoria() {
+  return `<p>${conferirQuantidades[mercadoria.iditens].quantidade}x - ${mercadoria.nome}</p>`
+}
